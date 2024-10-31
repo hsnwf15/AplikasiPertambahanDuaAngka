@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,25 +17,7 @@ public class AplikasiPertambahanFrame extends javax.swing.JFrame {
      */
     public AplikasiPertambahanFrame() {
         initComponents();
-        txtAngka1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                char inputChar = evt.getKeyChar();
-                // Hanya angka yang diizinkan
-                if (!(Character.isDigit(inputChar))) {
-                    evt.consume(); // Mencegah karakter non-numerik dimasukkan
-                }
-            }
-        });
-
-    txtAngka2.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyTyped(java.awt.event.KeyEvent evt) {
-            char inputChar = evt.getKeyChar();
-            // Hanya angka yang diizinkan
-            if (!(Character.isDigit(inputChar))) {
-                evt.consume(); // Mencegah karakter non-numerik dimasukkan
-            }
-        }
-    });
+        
 
     }
 
@@ -173,9 +158,18 @@ public class AplikasiPertambahanFrame extends javax.swing.JFrame {
 
     private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
         try {
-            // Ambil nilai dari text field
-            int angka1 = Integer.parseInt(txtAngka1.getText());
-            int angka2 = Integer.parseInt(txtAngka2.getText());
+            // Ambil dan validasi input dari text field
+            String input1 = txtAngka1.getText();
+            String input2 = txtAngka2.getText();
+
+            // Periksa apakah input kosong atau tidak numerik
+            if (input1.isEmpty() || input2.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Mohon masukkan angka di kedua kolom.", "Input Tidak Valid", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int angka1 = Integer.parseInt(input1);
+            int angka2 = Integer.parseInt(input2);
 
             // Hitung hasil pertambahan
             int hasil = angka1 + angka2;
@@ -183,9 +177,9 @@ public class AplikasiPertambahanFrame extends javax.swing.JFrame {
             // Tampilkan hasil
             lblHasil.setText(String.valueOf(hasil));
         } catch (NumberFormatException e) {
-            lblHasil.setText("Input tidak valid");
+        // Munculkan pesan kesalahan jika input bukan angka
+        JOptionPane.showMessageDialog(this, "Input harus berupa angka.", "Input Tidak Valid", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnHitungActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
