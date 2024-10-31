@@ -7,13 +7,33 @@
  *
  * @author Lenovo
  */
-public class NewJFrame extends javax.swing.JFrame {
+public class AplikasiPertambahanFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public AplikasiPertambahanFrame() {
         initComponents();
+        txtAngka1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                char inputChar = evt.getKeyChar();
+                // Hanya angka yang diizinkan
+                if (!(Character.isDigit(inputChar))) {
+                    evt.consume(); // Mencegah karakter non-numerik dimasukkan
+                }
+            }
+        });
+
+    txtAngka2.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyTyped(java.awt.event.KeyEvent evt) {
+            char inputChar = evt.getKeyChar();
+            // Hanya angka yang diizinkan
+            if (!(Character.isDigit(inputChar))) {
+                evt.consume(); // Mencegah karakter non-numerik dimasukkan
+            }
+        }
+    });
+
     }
 
     /**
@@ -27,19 +47,24 @@ public class NewJFrame extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txtAngka2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtAngka1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        lblHasil = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnHitung = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPanel1KeyTyped(evt);
+            }
+        });
         jPanel1.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -47,9 +72,9 @@ public class NewJFrame extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jTextField2, gridBagConstraints);
+        jPanel1.add(txtAngka2, gridBagConstraints);
 
-        jLabel1.setText("Nomor Pertama:");
+        jLabel1.setText("Angka Pertama:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -57,7 +82,7 @@ public class NewJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("Nomor Kedua:");
+        jLabel2.setText("Angka Kedua:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -70,7 +95,7 @@ public class NewJFrame extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jTextField1, gridBagConstraints);
+        jPanel1.add(txtAngka1, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setText("Aplikasi Pertambahan Dua Angka");
@@ -86,7 +111,7 @@ public class NewJFrame extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jTextField3, gridBagConstraints);
+        jPanel1.add(lblHasil, gridBagConstraints);
 
         jLabel4.setText("Hasil:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -96,14 +121,24 @@ public class NewJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(jLabel4, gridBagConstraints);
 
-        jButton1.setText("Hitung");
+        btnHitung.setText("Hitung");
+        btnHitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHitungActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jButton1, gridBagConstraints);
+        jPanel1.add(btnHitung, gridBagConstraints);
 
         jButton2.setText("Hapus");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -111,6 +146,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.add(jButton2, gridBagConstraints);
 
         jButton3.setText("Keluar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
@@ -131,6 +171,38 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
+        try {
+            // Ambil nilai dari text field
+            int angka1 = Integer.parseInt(txtAngka1.getText());
+            int angka2 = Integer.parseInt(txtAngka2.getText());
+
+            // Hitung hasil pertambahan
+            int hasil = angka1 + angka2;
+
+            // Tampilkan hasil
+            lblHasil.setText(String.valueOf(hasil));
+        } catch (NumberFormatException e) {
+            lblHasil.setText("Input tidak valid");
+        }
+
+    }//GEN-LAST:event_btnHitungActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        txtAngka1.setText("");
+        txtAngka2.setText("");
+        lblHasil.setText("");
+        txtAngka1.requestFocus();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jPanel1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyTyped
+        //TODOadd your handling code here:
+    }//GEN-LAST:event_jPanel1KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -148,26 +220,27 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AplikasiPertambahanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AplikasiPertambahanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AplikasiPertambahanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AplikasiPertambahanFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new AplikasiPertambahanFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnHitung;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -175,8 +248,8 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField lblHasil;
+    private javax.swing.JTextField txtAngka1;
+    private javax.swing.JTextField txtAngka2;
     // End of variables declaration//GEN-END:variables
 }
